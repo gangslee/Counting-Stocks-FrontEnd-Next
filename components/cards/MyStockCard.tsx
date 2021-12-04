@@ -30,7 +30,7 @@ const Amount = styled.span`
 const Name = styled.span`
   display: block;
   margin: 16px 0;
-  font-size: 18px;
+  font-size: 20px;
 `;
 
 const Current = styled.div`
@@ -56,23 +56,37 @@ const Value = styled.span`
   font-size: 16px;
 `;
 
-const MyStockCard = () => (
-  <Container>
-    <div>
-      <Code>META</Code>
-      <Amount>(8EA)</Amount>
-      <Name>Roundhill Ball Metaverse ETF</Name>
-      <Current>
-        USD 160.2500 <Ratio>(+1.57%)</Ratio>
-      </Current>
-    </div>
-    <RightContainer>
-      <Income>+137,421원</Income>
-      <Value>매입금액 1,104,789원</Value>
-      <Value>평가금액 1,234,567원</Value>
-      <Value>손익률 +10.08%</Value>
-    </RightContainer>
-  </Container>
-);
+interface Props {
+  data: {
+    id: string;
+    code: string;
+    name: string;
+    avg: number;
+    amount: number;
+  };
+}
+
+const MyStockCard = ({ data }: Props) => {
+  const { code, amount, name } = data;
+
+  return (
+    <Container>
+      <div>
+        <Code>{code}</Code>
+        <Amount>({amount}EA)</Amount>
+        <Name>{name}</Name>
+        <Current>
+          USD 160.2500 <Ratio>(+1.57%)</Ratio>
+        </Current>
+      </div>
+      <RightContainer>
+        <Income>+137,421원</Income>
+        <Value>매입금액 1,104,789원</Value>
+        <Value>평가금액 1,234,567원</Value>
+        <Value>손익률 +10.08%</Value>
+      </RightContainer>
+    </Container>
+  );
+};
 
 export default MyStockCard;

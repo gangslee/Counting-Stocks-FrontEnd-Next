@@ -9,7 +9,7 @@ const sampleData = [
     id: "_asdasdsadsadsadsa",
     code: "APPL",
     name: "애플",
-    value: 159.1234,
+    avg: 159.1234,
     amount: 34,
   },
 ];
@@ -23,8 +23,8 @@ const Home: NextPage = () => {
   return (
     <MainContainer>
       <CardContainer>
-        {sampleData.map((data) => (
-          <MyStockCard key={data.id} />
+        {sampleData.map((stock) => (
+          <MyStockCard key={stock.id} data={stock} />
         ))}
       </CardContainer>
     </MainContainer>
