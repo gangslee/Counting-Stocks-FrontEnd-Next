@@ -12,17 +12,10 @@ const sampleData = [
     value: 159.1234,
     amount: 34,
   },
-  {
-    id: "_asdasdzxczxcsadsadsa",
-    code: "DIS",
-    name: "월트디즈니",
-    value: 150.1234,
-    amount: 121,
-  },
 ];
 
 const CardContainer = styled.div`
-  width: 60%;
+  width: 75%;
   margin: auto;
 `;
 
