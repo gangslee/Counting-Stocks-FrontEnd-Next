@@ -1,34 +1,46 @@
-import type { NextPage } from "next";
+import type { InferGetStaticPropsType, NextPage } from "next";
 import styled from "styled-components";
 
 import MyStockCard from "../components/cards/MyStockCard";
 import MainContainer from "../components/containers/MainContainer";
+import { fetcher } from "../utils/api";
 
-const sampleData = [
-  {
-    id: "_asdasdsadsadsadsa",
-    code: "APPL",
-    name: "애플",
-    avg: 159.1234,
-    amount: 34,
-  },
-];
+interface Props {
+  id: string;
+  code: string;
+  name: string;
+  avg: number;
+  amount: number;
+}
 
 const CardContainer = styled.div`
   width: 75%;
   margin: auto;
 `;
 
-const Home: NextPage = () => {
+const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  data,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <MainContainer>
       <CardContainer>
-        {sampleData.map((stock) => (
-          <MyStockCard key={stock.id} data={stock} />
+        {data.map((stock, index) => (
+          <MyStockCard key={index} data={stock} />
         ))}
       </CardContainer>
     </MainContainer>
   );
+};
+
+export const getStaticProps = async () => {
+  const res = await fetcher.get("user/get-my-stock");
+  const data: Props[] = res.data;
+
+  return {
+    props: {
+      data,
+    },
+  };
 };
 
 export default Home;
