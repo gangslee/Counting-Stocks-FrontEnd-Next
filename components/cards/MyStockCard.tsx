@@ -6,36 +6,26 @@ const Container = styled.div`
   align-items: center;
   margin: 20px auto;
   padding: 32px 40px;
-  background-color: #fff;
-  box-shadow: 10px 10px 20px 0 rgba(95, 111, 174, 0.2);
+  /* background-color: #d0dadf; */
+  background-color: #202026;
+  color: #e0eaff;
+  /* box-shadow: 10px 10px 20px 0 rgba(0, 20, 40, 0.2); */
   border-radius: 8px;
 `;
 
-const RightContainer = styled.div`
+const SubContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 `;
 
-const Code = styled.span`
-  font-size: 28px;
-  font-weight: 600;
-`;
-
-const Amount = styled.span`
-  margin-left: 4px;
-  font-size: 18px;
-`;
-
 const Name = styled.span`
   display: block;
-  margin: 16px 0;
-  font-size: 20px;
+  margin-bottom: 16px;
+  font-size: 24px;
 `;
 
-const Current = styled.div`
-  display: flex;
-  align-items: center;
+const Current = styled.span`
   font-size: 18px;
 `;
 
@@ -47,12 +37,11 @@ const Ratio = styled.span`
 const Income = styled.span`
   display: block;
   font-size: 22px;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 `;
 
 const Value = styled.span`
   display: block;
-  margin-top: 12px;
   font-size: 16px;
 `;
 
@@ -67,24 +56,22 @@ interface Props {
 }
 
 const MyStockCard = ({ data }: Props) => {
-  const { code, amount, name } = data;
+  const { name } = data;
 
   return (
     <Container>
       <div>
-        <Code>{code}</Code>
-        <Amount>({amount}EA)</Amount>
         <Name>{name}</Name>
         <Current>
-          USD 160.2500 <Ratio>(+1.57%)</Ratio>
+          160.2500<Ratio>(+1.57%)</Ratio>
         </Current>
       </div>
-      <RightContainer>
+      <SubContainer>
         <Income>+137,421원</Income>
-        <Value>매입금액 1,104,789원</Value>
-        <Value>평가금액 1,234,567원</Value>
-        <Value>손익률 +10.08%</Value>
-      </RightContainer>
+        <Current>
+          158.6300<Ratio>(+1.57%)</Ratio>
+        </Current>
+      </SubContainer>
     </Container>
   );
 };

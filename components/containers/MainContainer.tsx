@@ -5,7 +5,7 @@ interface Props {
 }
 
 const Container = styled.div`
-  width: 1080px;
+  max-width: 800px;
   padding-top: 100px;
   margin: auto;
 `;
