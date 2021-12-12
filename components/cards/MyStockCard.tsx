@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { moneyComma } from "../../utils/format";
 
 const Container = styled.div`
   display: flex;
@@ -50,27 +51,34 @@ interface Props {
     amount: number;
     current: number;
     upDown: number;
+    input_krw: number;
   };
+  exchange: number;
 }
 
-const MyStockCard = ({ data }: Props) => {
-  const { name, current, upDown, avg } = data;
-  const ratio = Math.round(upDown * 100) / 100;
-
+const MyStockCard = ({ data, exchange }: Props) => {
+  const { name, current, upDown, avg, input_krw, amount } = data;
+  const currentRatio = Math.round(upDown * 100) / 100;
+  const income = Math.round(exchange * current * amount - input_krw);
+  const myRatio = (((current - avg) / avg) * 100).toFixed(2);
+  console.log(income);
   return (
     <Container>
       <div>
         <Name>{name}</Name>
         <Current>
-          {current.toFixed(4)}
-          <Ratio>({ratio}%)</Ratio>
+          {moneyComma(current.toFixed(4))}
+          <Ratio>({currentRatio}%)</Ratio>
         </Current>
       </div>
       <SubContainer>
-        <Income>+137,421원</Income>
+        <Income>
+          {income > 0 && "+"}
+          {moneyComma(`${income}`)}원
+        </Income>
         <Current>
-          {avg.toFixed(4)}
-          <Ratio>(+1.57%)</Ratio>
+          {moneyComma(avg.toFixed(4))}
+          <Ratio>{`(${myRatio}%)`}</Ratio>
         </Current>
       </SubContainer>
     </Container>

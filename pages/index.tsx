@@ -13,6 +13,7 @@ interface Props {
   avg: number;
   amount: number;
   upDown: number;
+  input_krw: number;
 }
 
 const CardContainer = styled.div`
@@ -22,12 +23,13 @@ const CardContainer = styled.div`
 
 const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   initData,
+  exchange,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <MainContainer>
       <CardContainer>
         {initData.map((stock, index) => (
-          <MyStockCard key={index} data={stock} />
+          <MyStockCard key={index} data={stock} exchange={exchange} />
         ))}
       </CardContainer>
     </MainContainer>
@@ -49,9 +51,12 @@ export const getStaticProps = async () => {
     })
   );
 
+  const exchange = await fetcher.get("exchange/today");
+
   return {
     props: {
       initData,
+      exchange: exchange.data,
     },
   };
 };

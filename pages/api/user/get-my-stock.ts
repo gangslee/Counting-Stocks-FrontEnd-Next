@@ -1,11 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import nc from "next-connect";
-import axios from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
-
-const api = axios.create({
-  baseURL: "http://localhost:4000",
-});
+import { serverApi } from "../../../utils/api";
 
 const handler = nc<NextApiRequest, NextApiResponse>({
   onError: (err, req, res) => {
@@ -16,7 +12,7 @@ const handler = nc<NextApiRequest, NextApiResponse>({
     res.status(404).end("Page is not found");
   },
 }).get(async (req, res) => {
-  const { data } = await api.get("stocks/my");
+  const { data } = await serverApi.get("stocks/my");
 
   res.status(200).send(JSON.stringify(data));
 });
