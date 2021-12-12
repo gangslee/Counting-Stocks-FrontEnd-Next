@@ -9,8 +9,10 @@ interface Props {
   id: string;
   code: string;
   name: string;
+  current: number;
   avg: number;
   amount: number;
+  upDown: number;
 }
 
 const CardContainer = styled.div`
@@ -19,13 +21,12 @@ const CardContainer = styled.div`
 `;
 
 const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
-  userData,
-  currentValues,
+  initData,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <MainContainer>
       <CardContainer>
-        {userData.map((stock, index) => (
+        {initData.map((stock, index) => (
           <MyStockCard key={index} data={stock} />
         ))}
       </CardContainer>
@@ -35,16 +36,22 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
 export const getStaticProps = async () => {
   const res = await fetcher.get("user/get-my-stock");
-  const userData: Props[] = res.data;
+  const initData: Props[] = res.data;
 
-  const currentValues = await Promise.all(
-    userData.map((data) => fetcher.get(`stock/my_stock_current?code=${data.code}`))
+  await Promise.all(
+    initData.map(async (stock) => {
+      const {
+        data: { regularMarketChange, regularMarketPrice },
+      } = await fetcher.get(`stock/my_stock_current?code=${stock.code}`);
+
+      stock.current = regularMarketPrice;
+      stock.upDown = regularMarketChange;
+    })
   );
 
   return {
     props: {
-      userData,
-      currentValues,
+      initData,
     },
   };
 };

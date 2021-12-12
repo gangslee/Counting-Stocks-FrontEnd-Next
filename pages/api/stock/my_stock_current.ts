@@ -12,10 +12,14 @@ const handler = nc<NextApiRequest, NextApiResponse>({
   },
 }).get(async (req, res) => {
   const { code } = req.query;
-  const fields: "regularMarketPrice"[] | undefined = ["regularMarketPrice"];
-  const { regularMarketPrice } = await yahooFinance.quoteCombine(`${code}`, { fields });
-
-  res.status(200).send(JSON.stringify(regularMarketPrice));
+  const fields: ("regularMarketPrice" | "regularMarketChange")[] | undefined = [
+    "regularMarketPrice",
+    "regularMarketChange",
+  ];
+  const { regularMarketChange, regularMarketPrice } = await yahooFinance.quoteCombine(`${code}`, {
+    fields,
+  });
+  res.status(200).send(JSON.stringify({ regularMarketChange, regularMarketPrice }));
 });
 
 export default handler;
