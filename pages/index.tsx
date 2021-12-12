@@ -19,12 +19,13 @@ const CardContainer = styled.div`
 `;
 
 const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
-  data,
+  userData,
+  currentValues,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <MainContainer>
       <CardContainer>
-        {data.map((stock, index) => (
+        {userData.map((stock, index) => (
           <MyStockCard key={index} data={stock} />
         ))}
       </CardContainer>
@@ -34,11 +35,16 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
 export const getStaticProps = async () => {
   const res = await fetcher.get("user/get-my-stock");
-  const data: Props[] = res.data;
+  const userData: Props[] = res.data;
+
+  const currentValues = await Promise.all(
+    userData.map((data) => fetcher.get(`stock/my_stock_current?code=${data.code}`))
+  );
 
   return {
     props: {
-      data,
+      userData,
+      currentValues,
     },
   };
 };
