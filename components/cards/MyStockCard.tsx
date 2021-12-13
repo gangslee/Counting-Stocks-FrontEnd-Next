@@ -41,7 +41,7 @@ const Ratio = styled.span`
   font-family: "S-CoreDream-5Medium";
 `;
 
-const Income = styled.span<plusMinus>`
+const Income = styled.span`
   display: block;
   font-size: 22px;
   margin-bottom: 16px;
@@ -81,7 +81,7 @@ const MyStockCard = ({ data, exchange }: Props) => {
           {income > 0 && "+"}
           {moneyComma(`${income}`)}원
         </Income>
-        <Current isPlus={myRatio > 0}>
+        <Current isPlus={parseFloat(myRatio) >= 0}>
           {moneyComma(avg.toFixed(4))}
           <Ratio>{`(${myRatio}%)`}</Ratio>
         </Current>
