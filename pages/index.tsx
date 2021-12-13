@@ -21,10 +21,10 @@ const CardContainer = styled.div`
   margin: auto;
 `;
 
-const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
   initData,
   exchange,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+}: InferGetStaticPropsType<typeof getServerSideProps>) => {
   return (
     <MainContainer>
       <CardContainer>
@@ -36,7 +36,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   );
 };
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const res = await fetcher.get("user/get-my-stock");
   const initData: Props[] = res.data;
 
