@@ -5,5 +5,5 @@ export const fetcher = axios.create({
 });
 
 export const serverApi = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: process.env.REAL_SERVER,
 });
