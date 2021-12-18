@@ -12,9 +12,11 @@ const handler = nc<NextApiRequest, NextApiResponse>({
     res.status(404).end("Page is not found");
   },
 }).get(async (req, res) => {
-  const { data } = await serverApi.get("stocks/my");
-
-  res.status(200).send(JSON.stringify(data));
+  const {
+    data: { stock },
+  } = await serverApi.get("stocks/my");
+  console.log(stock);
+  res.status(200).send(JSON.stringify(stock));
 });
 
 export default handler;
