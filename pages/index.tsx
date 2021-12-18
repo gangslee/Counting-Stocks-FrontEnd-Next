@@ -25,7 +25,6 @@ const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
   initData,
   exchange,
 }: InferGetStaticPropsType<typeof getServerSideProps>) => {
-  console.log(process.env.PORT);
   return (
     <MainContainer>
       <CardContainer>

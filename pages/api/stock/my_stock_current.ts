@@ -16,6 +16,7 @@ const handler = nc<NextApiRequest, NextApiResponse>({
     "regularMarketPrice",
     "regularMarketChange",
   ];
+
   const { regularMarketChange, regularMarketPrice } = await yahooFinance.quoteCombine(`${code}`, {
     fields,
   });
