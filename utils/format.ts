@@ -1,3 +1,5 @@
+import { MyStockInfo } from "../types/index/MyStockInfo";
+
 export const getDay = (n: number) => {
   const day = new Date();
   day.setDate(day.getDate() + n);
@@ -13,4 +15,8 @@ export const moneyComma = (str: string) => {
   const strArr = str.split(".");
   const result = strArr[0].replace(REGEX, ",") + (strArr.length > 1 ? `.${strArr[1]}` : "");
   return result;
+};
+
+export const sortByUpdown = (arr: MyStockInfo[]) => {
+  return arr.sort((a: MyStockInfo, b: MyStockInfo) => Math.abs(b.upDown) - Math.abs(a.upDown));
 };

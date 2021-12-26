@@ -3,21 +3,12 @@ import styled from "styled-components";
 
 import MyStockCard from "../components/cards/MyStockCard";
 import MainContainer from "../components/containers/MainContainer";
+import { MyStockInfo } from "../types/index/MyStockInfo";
 import { fetcher } from "../utils/api";
-
-interface Props {
-  id: string;
-  code: string;
-  name: string;
-  current: number;
-  avg: number;
-  amount: number;
-  upDown: number;
-  input_krw: number;
-}
+import { sortByUpdown } from "../utils/format";
 
 const CardContainer = styled.div`
-  width: 75%;
+  max-width: 480px;
   margin: auto;
 `;
 
@@ -38,7 +29,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
 
 export const getServerSideProps = async () => {
   const res = await fetcher.get("user/get-my-stock");
-  const initData: Props[] = res.data;
+  const initData: MyStockInfo[] = res.data;
 
   await Promise.all(
     initData.map(async (stock) => {
@@ -55,7 +46,7 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      initData,
+      initData: sortByUpdown(initData),
       exchange: exchange.data,
     },
   };

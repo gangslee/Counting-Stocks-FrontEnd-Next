@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { MyStockInfo } from "../../types/index/MyStockInfo";
 import { moneyComma } from "../../utils/format";
 
 type plusMinus = {
@@ -11,10 +12,10 @@ const Container = styled.div`
   align-items: center;
   margin: 20px auto;
   padding: 32px 40px;
-  /* background-color: #d0dadf; */
-  background-color: #202026;
-  color: #fff;
-  /* box-shadow: 10px 10px 20px 0 rgba(0, 20, 40, 0.2); */
+  background-color: #fafaff;
+  /* background-color: #202026; */
+  /* color: #fff; */
+  box-shadow: 10px 10px 20px 0 rgba(0, 20, 40, 0.2);
   border-radius: 8px;
 `;
 
@@ -48,25 +49,16 @@ const Income = styled.span`
 `;
 
 interface Props {
-  data: {
-    id: string;
-    code: string;
-    name: string;
-    avg: number;
-    amount: number;
-    current: number;
-    upDown: number;
-    input_krw: number;
-  };
+  data: MyStockInfo;
   exchange: number;
 }
 
 const MyStockCard = ({ data, exchange }: Props) => {
-  const { name, current, upDown, avg, input_krw, amount } = data;
+  const { name, current, upDown, avg, amount } = data;
   const currentRatio = Math.round(upDown * 100) / 100;
-  const income = Math.round(exchange * current * amount - input_krw);
+  const income = Math.round(exchange * (current - avg) * amount);
   const myRatio = (((current - avg) / avg) * 100).toFixed(2);
-  console.log(income);
+
   return (
     <Container>
       <div>

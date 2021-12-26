@@ -15,7 +15,7 @@ const handler = nc<NextApiRequest, NextApiResponse>({
   const {
     data: { stock },
   } = await serverApi.get("stocks/my");
-  console.log(stock);
+
   res.status(200).send(JSON.stringify(stock));
 });
 
