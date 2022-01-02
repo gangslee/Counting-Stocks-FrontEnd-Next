@@ -3,23 +3,57 @@ import styled from "styled-components";
 
 import MyStockCard from "../components/cards/MyStockCard";
 import MainContainer from "../components/containers/MainContainer";
+import { PlusMinus } from "../components/texts/Color";
 import { MyStockInfo } from "../types/index/MyStockInfo";
 import { fetcher } from "../utils/api";
-import { sortByUpdown } from "../utils/format";
+import { moneyComma, sortByUpdown } from "../utils/format";
 
 const CardContainer = styled.div`
   max-width: 480px;
   margin: auto;
 `;
 
+const TitleContainer = styled.div`
+  margin-top: 20px;
+  margin-bottom: 40px;
+  text-align: center;
+`;
+
+const Title = styled.span`
+  display: inline-block;
+  margin-bottom: 24px;
+  font-size: 36px;
+  font-family: "Lato";
+  font-weight: 600;
+  color: #222;
+`;
+
+const Subtitle = styled.span`
+  display: inline-block;
+  font-family: "S-CoreDream-4Regular";
+  font-weight: 600;
+  font-size: 20px;
+  color: #222;
+`;
+
 const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
-  initData,
+  stockInfo,
   exchange,
 }: InferGetStaticPropsType<typeof getServerSideProps>) => {
+  let revenue = 0;
+  stockInfo.forEach((stock) => (revenue += (stock.current - stock.avg) * stock.amount * exchange));
+
   return (
     <MainContainer>
+      <TitleContainer>
+        <Title>
+          현재 수익
+          <PlusMinus isPlus={revenue > 0}>{` ${moneyComma(revenue.toFixed())}`}</PlusMinus>원
+        </Title>
+        <Subtitle>아래 보유종목 카드에서 상세 현황이 확인 가능합니다.</Subtitle>
+      </TitleContainer>
       <CardContainer>
-        {initData.map((stock, index) => (
+        {stockInfo.map((stock, index) => (
           <MyStockCard key={index} data={stock} exchange={exchange} />
         ))}
       </CardContainer>
@@ -46,7 +80,7 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      initData: sortByUpdown(initData),
+      stockInfo: sortByUpdown(initData),
       exchange: exchange.data,
     },
   };

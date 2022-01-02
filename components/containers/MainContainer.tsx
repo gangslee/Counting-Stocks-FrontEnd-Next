@@ -5,9 +5,9 @@ interface Props {
 }
 
 const Container = styled.div`
+  margin: auto;
   max-width: 800px;
   padding-top: 100px;
-  margin: auto;
 `;
 
 const MainContainer = ({ children }: Props) => {

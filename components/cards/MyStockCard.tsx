@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import { MyStockInfo } from "../../types/index/MyStockInfo";
+import { plusMinus } from "../../types/style/color";
 import { moneyComma } from "../../utils/format";
-
-type plusMinus = {
-  isPlus: boolean;
-};
+import { PlusMinus } from "../texts/Color";
 
 const Container = styled.div`
   display: flex;
@@ -31,8 +29,7 @@ const Name = styled.span`
   font-size: 24px;
 `;
 
-const Current = styled.span<plusMinus>`
-  color: ${(props) => (props.isPlus ? "#dd4a4a" : "#4a4add")};
+const Current = styled.span`
   font-size: 16px;
 `;
 
@@ -63,9 +60,10 @@ const MyStockCard = ({ data, exchange }: Props) => {
     <Container>
       <div>
         <Name>{name}</Name>
-        <Current isPlus={currentRatio >= 0}>
-          {moneyComma(current.toFixed(4))}
-          <Ratio>({currentRatio}%)</Ratio>
+        <Current>
+          <PlusMinus isPlus={currentRatio >= 0}>
+            {moneyComma(current.toFixed(4))} <Ratio>({currentRatio}%)</Ratio>
+          </PlusMinus>
         </Current>
       </div>
       <SubContainer>
@@ -73,9 +71,11 @@ const MyStockCard = ({ data, exchange }: Props) => {
           {income > 0 && "+"}
           {moneyComma(`${income}`)}원
         </Income>
-        <Current isPlus={parseFloat(myRatio) >= 0}>
-          {moneyComma(avg.toFixed(4))}
-          <Ratio>{`(${myRatio}%)`}</Ratio>
+        <Current>
+          <PlusMinus isPlus={parseFloat(myRatio) >= 0}>
+            {moneyComma(avg.toFixed(4))}
+            <Ratio>{`(${myRatio}%)`}</Ratio>
+          </PlusMinus>
         </Current>
       </SubContainer>
     </Container>
