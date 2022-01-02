@@ -1,20 +1,27 @@
 import styled from "styled-components";
 import { MyStockInfo } from "../../types/index/MyStockInfo";
-import { plusMinus } from "../../types/style/color";
 import { moneyComma } from "../../utils/format";
 import { PlusMinus } from "../texts/Color";
 
 const Container = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin: 20px auto;
-  padding: 32px 40px;
-  background-color: #fafaff;
+  /* align-items: center; */
+  margin: 8px auto;
+  padding: 20px;
+  background-color: #fff;
   /* background-color: #202026; */
   /* color: #fff; */
   box-shadow: 10px 10px 20px 0 rgba(0, 20, 40, 0.2);
   border-radius: 8px;
+  :hover {
+    cursor: pointer;
+    transform: translate(-2px, -8px);
+    background-color: #fcfcfc;
+  }
+  transition: 0.2s transform linear;
+  z-index: 1;
 `;
 
 const SubContainer = styled.div`
@@ -26,22 +33,22 @@ const SubContainer = styled.div`
 const Name = styled.span`
   display: block;
   margin-bottom: 16px;
-  font-size: 24px;
+  font-size: 16px;
 `;
 
 const Current = styled.span`
-  font-size: 16px;
+  font-size: 14px;
 `;
 
 const Ratio = styled.span`
   margin-left: 4px;
-  font-size: 12px;
+  font-size: 10px;
   font-family: "S-CoreDream-5Medium";
 `;
 
 const Income = styled.span`
   display: block;
-  font-size: 22px;
+  font-size: 16px;
   margin-bottom: 16px;
 `;
 

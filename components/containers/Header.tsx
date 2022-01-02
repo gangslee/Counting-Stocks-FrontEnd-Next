@@ -9,7 +9,7 @@ const Container = styled.div`
   height: 73px;
   background-color: #fff;
   z-index: 1;
-  border-bottom: 3px solid #ebeff5;
+  border-bottom: 3px solid #dbdfe5;
 `;
 
 const Header = () => {

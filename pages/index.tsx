@@ -4,14 +4,10 @@ import styled from "styled-components";
 import MyStockCard from "../components/cards/MyStockCard";
 import MainContainer from "../components/containers/MainContainer";
 import { PlusMinus } from "../components/texts/Color";
+import { SectionTitle } from "../components/texts/SectionTitle";
 import { MyStockInfo } from "../types/index/MyStockInfo";
 import { fetcher } from "../utils/api";
 import { moneyComma, sortByUpdown } from "../utils/format";
-
-const CardContainer = styled.div`
-  max-width: 480px;
-  margin: auto;
-`;
 
 const TitleContainer = styled.div`
   margin-top: 20px;
@@ -20,7 +16,7 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.span`
-  display: inline-block;
+  display: block;
   margin-bottom: 24px;
   font-size: 36px;
   font-family: "Lato";
@@ -36,6 +32,13 @@ const Subtitle = styled.span`
   color: #222;
 `;
 
+const CardContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 12px 16px;
+  margin: auto;
+`;
+
 const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
   stockInfo,
   exchange,
@@ -47,11 +50,12 @@ const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
     <MainContainer>
       <TitleContainer>
         <Title>
-          현재 수익
+          보유 종목 수익
           <PlusMinus isPlus={revenue > 0}>{` ${moneyComma(revenue.toFixed())}`}</PlusMinus>원
         </Title>
         <Subtitle>아래 보유종목 카드에서 상세 현황이 확인 가능합니다.</Subtitle>
       </TitleContainer>
+      <SectionTitle>종목 현황</SectionTitle>
       <CardContainer>
         {stockInfo.map((stock, index) => (
           <MyStockCard key={index} data={stock} exchange={exchange} />
