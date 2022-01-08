@@ -1,13 +1,13 @@
+import dynamic from "next/dynamic";
 import styled from "styled-components";
+
 import { MyStockInfo } from "../../types/index/MyStockInfo";
 import { moneyComma } from "../../utils/format";
+import ThumbnailChart from "../charts/ThumbnailChart";
 import { PlusMinus } from "../texts/Color";
 
 const Container = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  /* align-items: center; */
   margin: 8px auto;
   padding: 20px;
   background-color: #fff;
@@ -24,20 +24,18 @@ const Container = styled.div`
   z-index: 1;
 `;
 
-const SubContainer = styled.div`
+const FlexContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-`;
-
-const Name = styled.span`
-  display: block;
-  margin-bottom: 16px;
+  justify-content: space-between;
   font-size: 16px;
+
+  :last-child {
+    font-size: 14px;
+  }
 `;
 
-const Current = styled.span`
-  font-size: 14px;
+const ChartContainer = styled.div`
+  width: 100%;
 `;
 
 const Ratio = styled.span`
@@ -46,16 +44,12 @@ const Ratio = styled.span`
   font-family: "S-CoreDream-5Medium";
 `;
 
-const Income = styled.span`
-  display: block;
-  font-size: 16px;
-  margin-bottom: 16px;
-`;
-
 interface Props {
   data: MyStockInfo;
   exchange: number;
 }
+
+const DynamicComponentWithNoSSR = dynamic(() => import("../charts/ThumbnailChart"), { ssr: false });
 
 const MyStockCard = ({ data, exchange }: Props) => {
   const { name, current, upDown, avg, amount } = data;
@@ -65,26 +59,28 @@ const MyStockCard = ({ data, exchange }: Props) => {
 
   return (
     <Container>
-      <div>
-        <Name>{name}</Name>
-        <Current>
-          <PlusMinus isPlus={currentRatio >= 0}>
-            {moneyComma(current.toFixed(4))} <Ratio>({currentRatio}%)</Ratio>
-          </PlusMinus>
-        </Current>
-      </div>
-      <SubContainer>
-        <Income>
+      <FlexContainer>
+        <span>{name}</span>
+        <span>
           {income > 0 && "+"}
           {moneyComma(`${income}`)}원
-        </Income>
-        <Current>
-          <PlusMinus isPlus={parseFloat(myRatio) >= 0}>
-            {moneyComma(avg.toFixed(4))}
-            <Ratio>{`(${myRatio}%)`}</Ratio>
-          </PlusMinus>
-        </Current>
-      </SubContainer>
+        </span>
+      </FlexContainer>
+
+      <ChartContainer>
+        <DynamicComponentWithNoSSR />
+      </ChartContainer>
+
+      <FlexContainer>
+        <PlusMinus isPlus={currentRatio >= 0}>
+          {moneyComma(current.toFixed(4))} <Ratio>({currentRatio}%)</Ratio>
+        </PlusMinus>
+
+        <PlusMinus isPlus={parseFloat(myRatio) >= 0}>
+          {moneyComma(avg.toFixed(4))}
+          <Ratio>{`(${myRatio}%)`}</Ratio>
+        </PlusMinus>
+      </FlexContainer>
     </Container>
   );
 };
