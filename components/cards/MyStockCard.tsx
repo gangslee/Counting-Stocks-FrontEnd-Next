@@ -3,13 +3,12 @@ import styled from "styled-components";
 
 import { MyStockInfo } from "../../types/index/MyStockInfo";
 import { moneyComma } from "../../utils/format";
-import ThumbnailChart from "../charts/ThumbnailChart";
 import { PlusMinus } from "../texts/Color";
 
 const Container = styled.div`
   width: 100%;
   margin: 8px auto;
-  padding: 20px;
+  padding: 24px 16px 0 16px;
   background-color: #fff;
   /* background-color: #202026; */
   /* color: #fff; */
@@ -27,10 +26,12 @@ const Container = styled.div`
 const FlexContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  font-size: 16px;
+  font-size: 12px;
+  padding: 0 8px;
 
-  :last-child {
-    font-size: 14px;
+  :first-child {
+    font-size: 16px;
+    margin-bottom: 8px;
   }
 `;
 
@@ -52,7 +53,7 @@ interface Props {
 const DynamicComponentWithNoSSR = dynamic(() => import("../charts/ThumbnailChart"), { ssr: false });
 
 const MyStockCard = ({ data, exchange }: Props) => {
-  const { name, current, upDown, avg, amount } = data;
+  const { ticker, name, current, upDown, avg, amount } = data;
   const currentRatio = Math.round(upDown * 100) / 100;
   const income = Math.round(exchange * (current - avg) * amount);
   const myRatio = (((current - avg) / avg) * 100).toFixed(2);
@@ -67,10 +68,6 @@ const MyStockCard = ({ data, exchange }: Props) => {
         </span>
       </FlexContainer>
 
-      <ChartContainer>
-        <DynamicComponentWithNoSSR />
-      </ChartContainer>
-
       <FlexContainer>
         <PlusMinus isPlus={currentRatio >= 0}>
           {moneyComma(current.toFixed(4))} <Ratio>({currentRatio}%)</Ratio>
@@ -81,6 +78,10 @@ const MyStockCard = ({ data, exchange }: Props) => {
           <Ratio>{`(${myRatio}%)`}</Ratio>
         </PlusMinus>
       </FlexContainer>
+
+      <ChartContainer>
+        <DynamicComponentWithNoSSR ticker={ticker} isPlus={currentRatio >= 0} />
+      </ChartContainer>
     </Container>
   );
 };

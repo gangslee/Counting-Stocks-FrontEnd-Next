@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import yahooFinance from "yahoo-finance2";
 import { HistoricalOptions } from "yahoo-finance2/dist/esm/src/modules/historical";
 import { getDay } from "../../../../utils/day";
+import { ModuleOptions } from "yahoo-finance2/dist/esm/src/lib/moduleCommon";
 
 const handler = nc<NextApiRequest, NextApiResponse>({
   onError: (err, req, res) => {
@@ -18,8 +19,12 @@ const handler = nc<NextApiRequest, NextApiResponse>({
   const { symbol } = req.query;
   const queryOptions: HistoricalOptions = { period1: getDay(-90), period2: today };
 
-  const data = await yahooFinance.historical(`${symbol}`, queryOptions);
-  res.status(200).send(JSON.stringify(data));
+  const result = await yahooFinance.historical(`${symbol}`, queryOptions);
+  const data = result.map((res) => {
+    return { x: res.date, y: res.close };
+  });
+
+  res.status(200).send(data);
 });
 
 export default handler;

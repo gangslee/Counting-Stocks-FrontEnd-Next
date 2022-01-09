@@ -6,7 +6,7 @@ import MainContainer from "../components/containers/MainContainer";
 import { PlusMinus } from "../components/texts/Color";
 import { SectionTitle } from "../components/texts/SectionTitle";
 import { MyStockInfo } from "../types/index/MyStockInfo";
-import { fetcher } from "../utils/api";
+import { localApiGet } from "../utils/api";
 import { moneyComma, sortByUpdown } from "../utils/format";
 
 const TitleContainer = styled.div`
@@ -35,7 +35,7 @@ const Subtitle = styled.span`
 const CardContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 12px 16px;
+  grid-gap: 16px 36px;
   margin: auto;
 `;
 
@@ -66,26 +66,26 @@ const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
 };
 
 export const getServerSideProps = async () => {
-  const res = await fetcher.get("user/get-my-stock");
-  const initData: MyStockInfo[] = res.data;
+  const data = await localApiGet("user/get-my-stock");
+  const initData: MyStockInfo[] = data;
 
   await Promise.all(
     initData.map(async (stock) => {
-      const {
-        data: { regularMarketChange, regularMarketPrice },
-      } = await fetcher.get(`stock/my_stock_current?code=${stock.code}`);
+      const { regularMarketChange, regularMarketPrice } = await localApiGet(
+        `stock/my_stock_current?code=${stock.ticker}`
+      );
 
       stock.current = regularMarketPrice;
       stock.upDown = regularMarketChange;
     })
   );
 
-  const exchange = await fetcher.get("exchange/today");
+  const exchange = await localApiGet("exchange/today");
 
   return {
     props: {
       stockInfo: sortByUpdown(initData),
-      exchange: exchange.data,
+      exchange,
     },
   };
 };
