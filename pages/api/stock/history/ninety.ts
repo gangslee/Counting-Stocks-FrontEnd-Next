@@ -14,10 +14,9 @@ const handler = nc<NextApiRequest, NextApiResponse>({
   },
 }).get(async (req, res) => {
   await NextCors(req, res, {
-    // Options
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
     origin: "*",
-    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    optionsSuccessStatus: 200,
   });
 
   const today = new Date();
