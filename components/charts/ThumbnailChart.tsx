@@ -15,7 +15,6 @@ interface Props {
 
 const Chart = ({ ticker, isPlus }: Props) => {
   const { data, error } = useSWR(`stock/history/ninety?symbol=${ticker}`, localApiGet);
-  console.log(data);
   if (error) {
     console.log("ERROR : useSWR(`stock/history/ninety?symbol=${ticker}`, localApiGet)");
   }
@@ -61,9 +60,7 @@ const Chart = ({ ticker, isPlus }: Props) => {
     },
   ];
   return (
-    <Container>
-      <ApexChart options={options} series={series} type="line" />
-    </Container>
+    <Container>{!error && <ApexChart options={options} series={series} type="line" />}</Container>
   );
 };
 
