@@ -497,10 +497,10 @@
     "normalize-path" "^3.0.0"
     "picomatch" "^2.0.4"
 
-"apexcharts@^3.18.0":
-  "integrity" "sha512-8rcB7u616lXXANG49h9vwyX0gZh0DWi4D23VnE8IU5grjaxW69IiXYldn+jB9Av407w8RVZjUv1xUpk0JlxxMg=="
-  "resolved" "https://registry.npmjs.org/apexcharts/-/apexcharts-3.32.1.tgz"
-  "version" "3.32.1"
+"apexcharts@^3.18.0", "apexcharts@^3.33.0":
+  "integrity" "sha512-gOc0qZijuomtXTThLbb0sKn+mZJkVQADyK/Zw9vQ0JjKVbMYxzek61xk40hT49i1Sq6/MUqsz0WgUXYpqqf8Mg=="
+  "resolved" "https://registry.npmjs.org/apexcharts/-/apexcharts-3.33.0.tgz"
+  "version" "3.33.0"
   dependencies:
     "svg.draggable.js" "^2.2.2"
     "svg.easing.js" "^2.0.0"
