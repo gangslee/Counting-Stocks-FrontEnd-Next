@@ -4,7 +4,7 @@ module.exports = {
     return [
       {
         source: "/api/:path*",
-        destination: "https://api.example.com/:path*",
+        destination: "https://counting-stocks-front-end-6giol5n6o-gangslee.vercel.app/:path*",
       },
     ];
   },
