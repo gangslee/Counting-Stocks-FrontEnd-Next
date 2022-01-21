@@ -8,7 +8,7 @@ import { PlusMinus } from "../texts/Color";
 const Container = styled.div`
   width: 100%;
   margin: 8px auto;
-  padding: 24px 16px 0 16px;
+  padding: 28px 16px 0 16px;
   background-color: #fff;
   /* background-color: #202026; */
   /* color: #fff; */

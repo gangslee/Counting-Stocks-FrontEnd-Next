@@ -18,7 +18,7 @@ const TitleContainer = styled.div`
 const Title = styled.span`
   display: block;
   margin-bottom: 24px;
-  font-size: 36px;
+  font-size: 32px;
   font-family: "Lato";
   font-weight: 600;
   color: #222;
@@ -28,7 +28,7 @@ const Subtitle = styled.span`
   display: inline-block;
   font-family: "S-CoreDream-4Regular";
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
   color: #222;
 `;
 

@@ -1,7 +1,6 @@
 import ApexChart from "react-apexcharts";
 import styled from "styled-components";
 import useSWR from "swr";
-import { ThumbnailChartDatas } from "../../types/index/MyStockInfo";
 import { localApiGet } from "../../utils/api";
 
 const Container = styled.div`
@@ -22,6 +21,7 @@ const Chart = ({ ticker, isPlus }: Props) => {
   const options = {
     chart: {
       foreColor: "#000",
+      parentHeightOffset: 0,
       zoom: {
         enabled: false,
       },
@@ -30,12 +30,9 @@ const Chart = ({ ticker, isPlus }: Props) => {
       },
     },
     colors: [isPlus ? "#dd4a4a" : "#5577dd"],
-    dataLabels: {
-      enabled: false,
-    },
-    tooltip: {
-      enabled: false,
-    },
+    // tooltip: {
+    //   enabled: false,
+    // },
     xaxis: {
       position: "bottom",
       labels: {
@@ -55,7 +52,7 @@ const Chart = ({ ticker, isPlus }: Props) => {
 
   const series = [
     {
-      name: "series-1",
+      name: ticker,
       data,
     },
   ];
