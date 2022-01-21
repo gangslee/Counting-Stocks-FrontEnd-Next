@@ -1,6 +1,7 @@
 import ApexChart from "react-apexcharts";
 import styled from "styled-components";
-import useSWR from "swr";
+import useSWR, { SWRResponse } from "swr";
+import { ThumbnailChartDatas } from "../../types/index/MyStockInfo";
 import { localApiGet } from "../../utils/api";
 
 const Container = styled.div`
@@ -13,7 +14,11 @@ interface Props {
 }
 
 const Chart = ({ ticker, isPlus }: Props) => {
-  const { data, error } = useSWR(`stock/history/ninety?symbol=${ticker}`, localApiGet);
+  const { data, error }: SWRResponse<ThumbnailChartDatas> = useSWR(
+    `stock/history/ninety?symbol=${ticker}`,
+    localApiGet
+  );
+
   if (error) {
     console.log("ERROR : useSWR(`stock/history/ninety?symbol=${ticker}`, localApiGet)");
   }
@@ -22,6 +27,7 @@ const Chart = ({ ticker, isPlus }: Props) => {
     chart: {
       foreColor: "#000",
       parentHeightOffset: 0,
+
       zoom: {
         enabled: false,
       },
@@ -29,12 +35,19 @@ const Chart = ({ ticker, isPlus }: Props) => {
         show: false,
       },
     },
+    annotations: {
+      points: [
+        {
+          x: new Date(data?.maxDate as Date).getTime(),
+          y: data?.max,
+        },
+      ],
+    },
     colors: [isPlus ? "#dd4a4a" : "#5577dd"],
-    // tooltip: {
-    //   enabled: false,
-    // },
+    tooltip: {
+      enabled: false,
+    },
     xaxis: {
-      position: "bottom",
       labels: {
         show: false,
       },
@@ -44,6 +57,7 @@ const Chart = ({ ticker, isPlus }: Props) => {
       axisTicks: {
         show: false,
       },
+      type: "datetime",
     },
     yaxis: {
       show: false,
@@ -53,11 +67,11 @@ const Chart = ({ ticker, isPlus }: Props) => {
   const series = [
     {
       name: ticker,
-      data,
+      data: data?.history,
     },
   ];
   return (
-    <Container>{!error && <ApexChart options={options} series={series} type="line" />}</Container>
+    <Container>{!error && <ApexChart type="line" options={options} series={series} />}</Container>
   );
 };
 

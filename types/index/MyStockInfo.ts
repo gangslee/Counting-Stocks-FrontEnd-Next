@@ -8,9 +8,15 @@ export interface MyStockInfo {
   upDown: number;
 }
 
-interface ThumbnailChartData {
-  x: string;
+export interface ThumbnailChartData {
+  x: Date;
   y: number;
 }
 
-export interface ThumbnailChartDatas extends Array<ThumbnailChartData> {}
+export interface ThumbnailChartDatas {
+  history: ThumbnailChartData[];
+  max: number;
+  maxDate: Date;
+  min: number;
+  minDate: Date;
+}

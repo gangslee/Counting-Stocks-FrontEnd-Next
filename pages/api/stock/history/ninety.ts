@@ -2,7 +2,8 @@ import nc from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next";
 import yahooFinance from "yahoo-finance2";
 import NextCors from "nextjs-cors";
-import { getDay } from "../../../../utils/day";
+import { dateFormat, getDay } from "../../../../utils/day";
+import { ThumbnailChartDatas } from "../../../../types/index/MyStockInfo";
 
 const handler = nc<NextApiRequest, NextApiResponse>({
   onError: (err, req, res) => {
@@ -20,16 +21,39 @@ const handler = nc<NextApiRequest, NextApiResponse>({
   });
 
   const today = new Date();
+  let max = 0;
+  let min = 9999999;
+
+  let maxDate: Date = new Date();
+  let minDate: Date = new Date();
 
   const { symbol } = req.query;
   const queryOptions = { period1: getDay(-90), period2: today };
+  try {
+    const result = await yahooFinance.historical(`${symbol}`, queryOptions);
+    const history = result.map((res) => {
+      if (res.close > max) {
+        max = res.close;
+        maxDate = res.date;
+      } else if (res.close < min) {
+        min = res.close;
+        minDate = res.date;
+      }
+      return { x: res.date, y: res.close };
+    });
 
-  const result = await yahooFinance.historical(`${symbol}`, queryOptions);
-  const data = result.map((res) => {
-    return { x: res.date, y: res.close };
-  });
+    const ThumbnailChartDatas: ThumbnailChartDatas = {
+      history,
+      max,
+      min,
+      maxDate,
+      minDate,
+    };
 
-  res.status(200).send(data);
+    return res.status(200).send(ThumbnailChartDatas);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 export default handler;
