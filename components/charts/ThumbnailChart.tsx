@@ -35,14 +35,6 @@ const Chart = ({ ticker, isPlus }: Props) => {
         show: false,
       },
     },
-    annotations: {
-      points: [
-        {
-          x: new Date(data?.maxDate as Date).getTime(),
-          y: data?.max,
-        },
-      ],
-    },
     colors: [isPlus ? "#dd4a4a" : "#5577dd"],
     tooltip: {
       enabled: false,
@@ -57,7 +49,6 @@ const Chart = ({ ticker, isPlus }: Props) => {
       axisTicks: {
         show: false,
       },
-      type: "datetime",
     },
     yaxis: {
       show: false,
