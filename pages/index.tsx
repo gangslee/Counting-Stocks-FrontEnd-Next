@@ -1,4 +1,5 @@
 import type { InferGetStaticPropsType, NextPage } from "next";
+import Link from "next/link";
 import styled from "styled-components";
 
 import MyStockCard from "../components/cards/MyStockCard";
@@ -44,17 +45,21 @@ const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
 
   return (
     <MainContainer>
-      {/* <TitleContainer> */}
       <Title>
         보유 종목 수익
         <PlusMinus isPlus={revenue > 0}>{` ${moneyComma(revenue.toFixed())}`}</PlusMinus>원
       </Title>
       <Subtitle>아래 보유종목 카드에서 상세 현황이 확인 가능합니다.</Subtitle>
-      {/* </TitleContainer> */}
+
       <SectionTitle>종목 현황</SectionTitle>
+
       <CardContainer>
         {stockInfo.map((stock, index) => (
-          <MyStockCard key={index} data={stock} exchange={exchange} />
+          <Link href={`/detail/${stock.ticker}`} key={index}>
+            <a>
+              <MyStockCard data={stock} exchange={exchange} />
+            </a>
+          </Link>
         ))}
       </CardContainer>
     </MainContainer>
