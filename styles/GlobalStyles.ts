@@ -17,32 +17,32 @@ const GlobalStyle = createGlobalStyle`
     box-sizing:border-box;
   }
   @font-face {
-    font-family: 'S-CoreDream-5Medium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff');
+    font-family: "S-CoreDream-5Medium";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff") format("woff");
     font-weight: normal;
     font-style: normal;
   }   
     
   @font-face {
-    font-family: 'S-CoreDream-4Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff') format('woff');
+    font-family: "S-CoreDream-4Regular";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff") format("woff");
     font-weight: normal;
     font-style: normal;
   }
   @font-face {
-    font-family: 'S-CoreDream-6Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff');
+    font-family: "S-CoreDream-6Bold";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff") format("woff");
     font-weight: normal;
     font-style: normal;
   }
   @font-face {
-      font-family: 'Bareun_hipi';
-      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/naverfont_01@1.0/Bareun_hipi.woff') format('woff');
+      font-family: "Bareun_hipi";
+      src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/naverfont_01@1.0/Bareun_hipi.woff") format("woff");
       font-weight: normal;
       font-style: normal;
   }
   body{
-    font-family: "S-CoreDream-6Bold", "Lato", 'Noto Sans KR',sans-serif;    
+    font-family: "S-CoreDream-6Bold", "S-CoreDream-5Medium", "S-CoreDream-4Regular", "Lato", "Noto Sans KR",sans-serif;    
   }
   input{
     border: none;
