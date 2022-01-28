@@ -42,7 +42,7 @@ const GlobalStyle = createGlobalStyle`
       font-style: normal;
   }
   body{
-    font-family: "S-CoreDream-6Bold", "S-CoreDream-5Medium", "S-CoreDream-4Regular", "Lato", "Noto Sans KR",sans-serif;    
+    font-family: "S-CoreDream-6Bold", "S-CoreDream-5Medium", "S-CoreDream-4Regular", "Lato", "Noto Sans KR";
   }
   input{
     border: none;
