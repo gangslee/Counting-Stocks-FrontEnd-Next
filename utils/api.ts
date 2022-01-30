@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const localApiGet = async (url: string) => {
+  console.log(process.env.WEB_SERVER);
   return await webApi.get(`/api/${url}`).then((res) => res.data);
 };
 

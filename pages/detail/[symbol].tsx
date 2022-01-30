@@ -1,9 +1,10 @@
 import { GetServerSideProps, InferGetStaticPropsType, NextPage } from "next";
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import styled from "styled-components";
-import useSWR from "swr";
 
 import MainContainer from "../../components/containers/MainContainer";
+import { SectionTitle } from "../../components/texts/SectionTitle";
 import { localApiGet } from "../../utils/api";
 
 const Form = styled.form``;
@@ -17,12 +18,24 @@ const Input = styled.input`
 
 const Button = styled.button``;
 
+const ChartContainer = styled.div`
+  margin: 16px auto;
+  padding: 28px 24px 0 24px;
+  background-color: #fff;
+  box-shadow: 10px 10px 20px 0 rgba(0, 20, 40, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+`;
+
+const DynamicComponentWithNoSSR = dynamic(() => import("../../components/charts/LineChart"), {
+  ssr: false,
+});
+
 const History: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
   symbol,
+  regularMarketChange,
 }: InferGetStaticPropsType<typeof getServerSideProps>) => {
   const [ticker, setTicker] = useState(symbol as string);
-
-  const { data, error } = useSWR(`stock/my_stock_current?code=${ticker}`, localApiGet);
 
   const handleOnSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -38,7 +51,10 @@ const History: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
       <Form onSubmit={handleOnSubmit}>
         <Input placeholder="Ticker" name="ticker" />
         <Button type="submit">Search</Button>
-        <h1>{ticker}</h1>
+        <SectionTitle>{ticker}</SectionTitle>
+        <ChartContainer>
+          <DynamicComponentWithNoSSR ticker={ticker} regularMarketChange={regularMarketChange} />
+        </ChartContainer>
       </Form>
     </MainContainer>
   );
@@ -49,9 +65,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     query: { symbol },
   } = context;
 
+  const { regularMarketChange } = await localApiGet(`stock/my_stock_current?code=${symbol}`);
+
   return {
     props: {
       symbol,
+      regularMarketChange,
     },
   };
 };

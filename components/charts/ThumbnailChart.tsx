@@ -25,9 +25,6 @@ const Chart = ({ ticker, isPlus }: Props) => {
 
   const options = {
     chart: {
-      foreColor: "#000",
-      parentHeightOffset: 0,
-
       zoom: {
         enabled: false,
       },

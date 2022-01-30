@@ -24,22 +24,23 @@ const handler = nc<NextApiRequest, NextApiResponse>({
   let max = 0;
   let min = 9999999;
 
-  let maxDate: Date = new Date();
-  let minDate: Date = new Date();
+  let maxDate = "";
+  let minDate = "";
 
   const { symbol } = req.query;
   const queryOptions = { period1: getDay(-90), period2: today };
   try {
     const result = await yahooFinance.historical(`${symbol}`, queryOptions);
     const history = result.map((res) => {
+      const date = dateFormat(res.date);
       if (res.close > max) {
         max = res.close;
-        maxDate = res.date;
+        maxDate = date;
       } else if (res.close < min) {
         min = res.close;
-        minDate = res.date;
+        minDate = date;
       }
-      return { x: res.date, y: res.close };
+      return { x: date, y: res.close };
     });
 
     const ThumbnailChartDatas: ThumbnailChartDatas = {

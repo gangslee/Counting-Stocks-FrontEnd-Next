@@ -55,11 +55,11 @@ const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
 
       <CardContainer>
         {stockInfo.map((stock, index) => (
-          //<Link href={`/detail/${stock.ticker}`} key={index}>
-          //<a>
-          <MyStockCard data={stock} exchange={exchange} key={index} />
-          //</a>
-          //</Link>
+          <Link href={`/detail/${stock.ticker}`} key={index}>
+            <a>
+              <MyStockCard data={stock} exchange={exchange} key={index} />
+            </a>
+          </Link>
         ))}
       </CardContainer>
     </MainContainer>

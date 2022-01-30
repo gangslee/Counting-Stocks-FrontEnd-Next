@@ -10,35 +10,44 @@ const Container = styled.div`
 
 interface Props {
   ticker: string;
-  isPlus: boolean;
+  regularMarketChange: number;
 }
 
-const Chart = ({ ticker, isPlus }: Props) => {
+const Chart = ({ ticker, regularMarketChange }: Props) => {
+  const isPlus = regularMarketChange > 0;
   const { data, error }: SWRResponse<ThumbnailChartDatas> = useSWR(
     `stock/history/ninety?symbol=${ticker}`,
     localApiGet
   );
 
   if (error) {
-    console.log("ERROR : useSWR(`stock/history/ninety?symbol=${ticker}`, localApiGet)");
+    console.log("ERROR [LineChart]: useSWR(`stock/history/ninety?symbol=${ticker}`, localApiGet)");
   }
 
-  const options = {
-    chart: {
-      foreColor: "#000",
-      parentHeightOffset: 0,
-
-      zoom: {
-        enabled: false,
-      },
-      toolbar: {
-        show: false,
-      },
+  const options: ApexCharts.ApexOptions = {
+    annotations: {
+      points: [
+        {
+          x: new Date(`${data?.maxDate}`).getTime(),
+          y: data?.max,
+          marker: {
+            size: 8,
+            strokeColor: isPlus ? "#dd4a4a" : "#5577dd",
+            radius: 4,
+          },
+          label: {
+            borderColor: isPlus ? "#dd4a4a" : "#5577dd",
+            style: {
+              color: "#fff",
+              background: isPlus ? "#dd4a4a" : "#5577dd",
+            },
+            text: `최고가 ${data?.max}`,
+          },
+        },
+      ],
     },
+    chart: {},
     colors: [isPlus ? "#dd4a4a" : "#5577dd"],
-    tooltip: {
-      enabled: false,
-    },
     xaxis: {
       labels: {
         show: false,
@@ -49,9 +58,12 @@ const Chart = ({ ticker, isPlus }: Props) => {
       axisTicks: {
         show: false,
       },
+      type: "datetime",
     },
     yaxis: {
-      show: false,
+      axisBorder: {
+        show: false,
+      },
     },
   };
 
@@ -62,7 +74,9 @@ const Chart = ({ ticker, isPlus }: Props) => {
     },
   ];
   return (
-    <Container>{!error && <ApexChart type="line" options={options} series={series} />}</Container>
+    <Container>
+      {!error && <ApexChart type="line" options={options} series={series} height={400} />}
+    </Container>
   );
 };
 

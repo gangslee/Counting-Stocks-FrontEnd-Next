@@ -9,14 +9,14 @@ export interface MyStockInfo {
 }
 
 export interface ThumbnailChartData {
-  x: Date;
+  x: string;
   y: number;
 }
 
 export interface ThumbnailChartDatas {
   history: ThumbnailChartData[];
   max: number;
-  maxDate: Date;
+  maxDate: string;
   min: number;
-  minDate: Date;
+  minDate: string;
 }
