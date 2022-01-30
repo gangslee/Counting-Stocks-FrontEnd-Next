@@ -1,6 +1,7 @@
 import { GetServerSideProps, InferGetStaticPropsType, NextPage } from "next";
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React from "react";
 import styled from "styled-components";
 
 import MainContainer from "../../components/containers/MainContainer";
@@ -35,7 +36,8 @@ const History: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
   symbol,
   regularMarketChange,
 }: InferGetStaticPropsType<typeof getServerSideProps>) => {
-  const [ticker, setTicker] = useState(symbol as string);
+  const ticker = symbol;
+  const router = useRouter();
 
   const handleOnSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -43,7 +45,7 @@ const History: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
     const target = e.target as typeof e.target & {
       ticker: { value: string };
     };
-    setTicker(target.ticker.value);
+    router.push(target.ticker.value);
   };
 
   return (

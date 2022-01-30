@@ -31,9 +31,9 @@ const Chart = ({ ticker, regularMarketChange }: Props) => {
           x: new Date(`${data?.maxDate}`).getTime(),
           y: data?.max,
           marker: {
-            size: 8,
+            size: 6,
             strokeColor: isPlus ? "#dd4a4a" : "#5577dd",
-            radius: 4,
+            radius: 3,
           },
           label: {
             borderColor: isPlus ? "#dd4a4a" : "#5577dd",
@@ -42,6 +42,23 @@ const Chart = ({ ticker, regularMarketChange }: Props) => {
               background: isPlus ? "#dd4a4a" : "#5577dd",
             },
             text: `최고가 ${data?.max}`,
+          },
+        },
+        {
+          x: new Date(`${data?.minDate}`).getTime(),
+          y: data?.min,
+          marker: {
+            size: 6,
+            strokeColor: isPlus ? "#dd4a4a" : "#5577dd",
+            radius: 3,
+          },
+          label: {
+            borderColor: isPlus ? "#dd4a4a" : "#5577dd",
+            style: {
+              color: "#fff",
+              background: isPlus ? "#dd4a4a" : "#5577dd",
+            },
+            text: `최저가 ${data?.min}`,
           },
         },
       ],
