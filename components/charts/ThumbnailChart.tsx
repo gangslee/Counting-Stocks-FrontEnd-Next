@@ -1,7 +1,8 @@
 import ApexChart from "react-apexcharts";
 import styled from "styled-components";
 import useSWR, { SWRResponse } from "swr";
-import { ThumbnailChartDatas } from "../../types/index/MyStockInfo";
+import { CS_BLUE, CS_RED } from "../../styles/config";
+import { ThumbnailChartDatas } from "../../types/chart/ThumbnailChart";
 import { localApiGet } from "../../utils/api";
 
 const Container = styled.div`
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const Chart = ({ ticker, isPlus }: Props) => {
+  const color = isPlus ? CS_RED : CS_BLUE;
   const { data, error }: SWRResponse<ThumbnailChartDatas> = useSWR(
     `stock/history/ninety?symbol=${ticker}`,
     localApiGet
@@ -32,7 +34,7 @@ const Chart = ({ ticker, isPlus }: Props) => {
         show: false,
       },
     },
-    colors: [isPlus ? "#dd4a4a" : "#5577dd"],
+    colors: [color],
     tooltip: {
       enabled: false,
     },

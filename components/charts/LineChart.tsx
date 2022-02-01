@@ -1,7 +1,8 @@
 import ApexChart from "react-apexcharts";
 import styled from "styled-components";
 import useSWR, { SWRResponse } from "swr";
-import { ThumbnailChartDatas } from "../../types/index/MyStockInfo";
+import { CS_BLUE, CS_RED } from "../../styles/config";
+import { ThumbnailChartDatas } from "../../types/chart/ThumbnailChart";
 import { localApiGet } from "../../utils/api";
 
 const Container = styled.div`
@@ -15,6 +16,7 @@ interface Props {
 
 const Chart = ({ ticker, regularMarketChange }: Props) => {
   const isPlus = regularMarketChange > 0;
+  const color = isPlus ? CS_RED : CS_BLUE;
   const { data, error }: SWRResponse<ThumbnailChartDatas> = useSWR(
     `stock/history/ninety?symbol=${ticker}`,
     localApiGet
@@ -32,14 +34,14 @@ const Chart = ({ ticker, regularMarketChange }: Props) => {
           y: data?.max,
           marker: {
             size: 6,
-            strokeColor: isPlus ? "#dd4a4a" : "#5577dd",
+            strokeColor: color,
             radius: 3,
           },
           label: {
-            borderColor: isPlus ? "#dd4a4a" : "#5577dd",
+            borderColor: color,
             style: {
               color: "#fff",
-              background: isPlus ? "#dd4a4a" : "#5577dd",
+              background: color,
             },
             text: `최고가 ${data?.max}`,
           },
@@ -49,14 +51,14 @@ const Chart = ({ ticker, regularMarketChange }: Props) => {
           y: data?.min,
           marker: {
             size: 6,
-            strokeColor: isPlus ? "#dd4a4a" : "#5577dd",
+            strokeColor: color,
             radius: 3,
           },
           label: {
-            borderColor: isPlus ? "#dd4a4a" : "#5577dd",
+            borderColor: color,
             style: {
               color: "#fff",
-              background: isPlus ? "#dd4a4a" : "#5577dd",
+              background: color,
             },
             text: `최저가 ${data?.min}`,
           },

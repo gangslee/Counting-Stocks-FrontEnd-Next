@@ -70,7 +70,8 @@ const MyStockCard = ({ data, exchange }: Props) => {
 
       <FlexContainer>
         <PlusMinus isPlus={currentRatio >= 0}>
-          {moneyComma(current.toFixed(4))} <Ratio>({currentRatio}%)</Ratio>
+          {moneyComma(current.toFixed(4))}
+          <Ratio>({currentRatio}%)</Ratio>
         </PlusMinus>
 
         <PlusMinus isPlus={parseFloat(myRatio) >= 0}>

@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import yahooFinance from "yahoo-finance2";
 import NextCors from "nextjs-cors";
 import { dateFormat, getDay } from "../../../../utils/day";
-import { ThumbnailChartDatas } from "../../../../types/index/MyStockInfo";
+import { ThumbnailChartDatas } from "../../../../types/chart/ThumbnailChart";
 
 const handler = nc<NextApiRequest, NextApiResponse>({
   onError: (err, req, res) => {
