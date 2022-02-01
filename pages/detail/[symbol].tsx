@@ -53,11 +53,11 @@ const History: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
       <Form onSubmit={handleOnSubmit}>
         <Input placeholder="Ticker" name="ticker" />
         <Button type="submit">Search</Button>
-        <SectionTitle>{ticker}</SectionTitle>
-        <ChartContainer>
-          <DynamicComponentWithNoSSR ticker={ticker} regularMarketChange={regularMarketChange} />
-        </ChartContainer>
       </Form>
+      <SectionTitle>{ticker}</SectionTitle>
+      <ChartContainer>
+        <DynamicComponentWithNoSSR ticker={ticker} regularMarketChange={regularMarketChange} />
+      </ChartContainer>
     </MainContainer>
   );
 };

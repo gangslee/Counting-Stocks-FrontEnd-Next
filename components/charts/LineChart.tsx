@@ -1,7 +1,7 @@
 import ApexChart from "react-apexcharts";
 import styled from "styled-components";
 import useSWR, { SWRResponse } from "swr";
-import { CS_BLUE, CS_RED } from "../../styles/config";
+import { CS_BLUE, CS_RED } from "../../styles/Theme";
 import { ThumbnailChartDatas } from "../../types/chart/ThumbnailChart";
 import { localApiGet } from "../../utils/api";
 

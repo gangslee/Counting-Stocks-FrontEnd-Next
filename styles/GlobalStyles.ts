@@ -43,6 +43,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body{
     font-family: "S-CoreDream-6Bold", "S-CoreDream-5Medium", "S-CoreDream-4Regular", "Lato", "Noto Sans KR";
+    -webkit-tap-highlight-color: transparent;
   }
   input{
     border: none;

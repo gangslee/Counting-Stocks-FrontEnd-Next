@@ -1,10 +1,12 @@
 import type { InferGetStaticPropsType, NextPage } from "next";
 import Link from "next/link";
+import { useState } from "react";
 import styled from "styled-components";
 
 import MyStockCard from "../components/cards/MyStockCard";
 import FAB from "../components/containers/FAB";
 import MainContainer from "../components/containers/MainContainer";
+import ModalContainer from "../components/containers/ModalContainer";
 import { PlusMinus } from "../components/texts/Color";
 import { SectionTitle } from "../components/texts/SectionTitle";
 import { MyStockInfo } from "../types/index/MyStockInfo";
@@ -37,16 +39,22 @@ const CardContainer = styled.div`
   margin: auto;
 `;
 
-const handleOnClickFAB = () => {
-  alert("Need to Made Modal");
-};
-
 const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
   stockInfo,
   exchange,
 }: InferGetStaticPropsType<typeof getServerSideProps>) => {
   let revenue = 0;
   stockInfo.forEach((stock) => (revenue += (stock.current - stock.avg) * stock.amount * exchange));
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOnClickFAB = () => {
+    setShowModal(true);
+  };
+
+  const handleOnClickModalOutside = () => {
+    setShowModal(false);
+  };
 
   return (
     <MainContainer>
@@ -69,6 +77,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
       </CardContainer>
 
       <FAB text="+" onClick={handleOnClickFAB} />
+      {showModal && <ModalContainer closeModal={handleOnClickModalOutside} />}
     </MainContainer>
   );
 };
