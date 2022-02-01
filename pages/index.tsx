@@ -3,6 +3,7 @@ import Link from "next/link";
 import styled from "styled-components";
 
 import MyStockCard from "../components/cards/MyStockCard";
+import FAB from "../components/containers/FAB";
 import MainContainer from "../components/containers/MainContainer";
 import { PlusMinus } from "../components/texts/Color";
 import { SectionTitle } from "../components/texts/SectionTitle";
@@ -36,6 +37,10 @@ const CardContainer = styled.div`
   margin: auto;
 `;
 
+const handleOnClickFAB = () => {
+  alert("Need to Made Modal");
+};
+
 const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
   stockInfo,
   exchange,
@@ -62,6 +67,8 @@ const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
           </Link>
         ))}
       </CardContainer>
+
+      <FAB text="+" onClick={handleOnClickFAB} />
     </MainContainer>
   );
 };

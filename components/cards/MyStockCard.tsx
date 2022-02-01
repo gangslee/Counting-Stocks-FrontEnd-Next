@@ -14,8 +14,8 @@ const Container = styled.div`
   /* color: #fff; */
   box-shadow: 10px 10px 20px 0 rgba(0, 20, 40, 0.2);
   border-radius: 8px;
+  cursor: pointer;
   :hover {
-    cursor: pointer;
     transform: translate(-2px, -8px);
     background-color: #fcfcfc;
   }
