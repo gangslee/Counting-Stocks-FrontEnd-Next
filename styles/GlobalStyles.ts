@@ -3,19 +3,7 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
-    
-  a{
-    text-decoration:none;
-    color:inherit;  
-  }
-  body{
-    /* background-color: #17171B; */
-    background-color: #f6f6f6;
-  }
-  
-  *{
-    box-sizing:border-box;
-  }
+
   @font-face {
     font-family: "S-CoreDream-5Medium";
     src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff") format("woff");
@@ -35,15 +23,19 @@ const GlobalStyle = createGlobalStyle`
     font-weight: normal;
     font-style: normal;
   }
-  @font-face {
-      font-family: "Bareun_hipi";
-      src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/naverfont_01@1.0/Bareun_hipi.woff") format("woff");
-      font-weight: normal;
-      font-style: normal;
+  *{
+    box-sizing:border-box;
+
   }
   body{
-    font-family: "S-CoreDream-6Bold", "S-CoreDream-5Medium", "S-CoreDream-4Regular", "Lato", "Noto Sans KR";
+    /* background-color: #17171B; */
+    background-color: #f6f6f6;
     -webkit-tap-highlight-color: transparent;
+    font-family: "S-CoreDream-6Bold", "S-CoreDream-5Medium", "S-CoreDream-4Regular", "S-CoreDream-5Regular", "Spoqa Han Sans Neo", "Noto Sans KR", "sans-serif";
+  }
+  a{
+    text-decoration:none;
+    color:inherit;  
   }
   input{
     border: none;
@@ -57,16 +49,7 @@ const GlobalStyle = createGlobalStyle`
         outline:none;
     }
   }
-  @media only screen and (max-width: 768px) {
-    body {
-      font-size: 12px;
-    }
-  }
-  @media only screen and (max-width: 576px) {
-    body {
-      font-size: 10px;
-    }
-  }
+
 `;
 
 export default GlobalStyle;

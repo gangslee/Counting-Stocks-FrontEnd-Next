@@ -9,28 +9,11 @@ import MainContainer from "../components/containers/MainContainer";
 import ModalContainer from "../components/containers/ModalContainer";
 import { PlusMinus } from "../components/texts/Color";
 import { SectionTitle } from "../components/texts/SectionTitle";
+import Subtitle from "../components/texts/Subtitle";
+import Title from "../components/texts/Title";
 import { MyStockInfo } from "../types/index/MyStockInfo";
 import { localApiGet } from "../utils/api";
 import { moneyComma, sortByUpdown } from "../utils/format";
-
-const Title = styled.span`
-  display: block;
-  text-align: center;
-  margin: 24px 0px;
-  font-size: 36px;
-  font-family: "Lato";
-  font-weight: 600;
-  color: #222;
-`;
-
-const Subtitle = styled.span`
-  display: block;
-  text-align: center;
-  font-family: "S-CoreDream-4Regular";
-  font-weight: 600;
-  font-size: 18px;
-  color: #222;
-`;
 
 const CardContainer = styled.div`
   display: grid;
@@ -64,7 +47,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
       </Title>
       <Subtitle>아래 보유종목 카드에서 상세 현황이 확인 가능합니다.</Subtitle>
 
-      <SectionTitle>종목 현황</SectionTitle>
+      <SectionTitle>보유종목 현황</SectionTitle>
 
       <CardContainer>
         {stockInfo.map((stock, index) => (

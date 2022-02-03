@@ -20,7 +20,6 @@ const Container = styled.div`
     background-color: #fcfcfc;
   }
   transition: 0.2s transform linear;
-  z-index: 1;
 `;
 
 const FlexContainer = styled.div`
