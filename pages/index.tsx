@@ -51,11 +51,11 @@ const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
 
       <CardContainer>
         {stockInfo.map((stock, index) => (
-          <Link href={`/detail/${stock.ticker}`} key={index}>
-            <a>
-              <MyStockCard data={stock} exchange={exchange} key={index} />
-            </a>
-          </Link>
+          // <Link href={`/detail/${stock.ticker}`} key={index}>
+          <a onClick={() => alert("해당 페이지는 아직 준비 중 입니다.")} key={index}>
+            <MyStockCard data={stock} exchange={exchange} key={index} />
+          </a>
+          // </Link>
         ))}
       </CardContainer>
 
