@@ -1,26 +1,4 @@
 import React, { useRef } from "react";
-import styled from "styled-components";
-
-const Container = styled.button`
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-`;
-
-const ModalContent = styled.div`
-  max-width: 680px;
-  box-sizing: border-box;
-  margin: auto;
-  padding: 180px 20px;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 10px 10px 20px 0 rgba(0, 20, 40, 0.2);
-`;
 
 interface Props {
   closeModal: () => void;
@@ -35,9 +13,9 @@ const ModalContainer = ({ closeModal }: Props) => {
   };
 
   return (
-    <Container onClick={handleMoalClose} ref={container}>
-      <ModalContent />
-    </Container>
+    <div className="w-full h-full flex fixed z-10 top-0 left-0 overflow-auto bg-black bg-opacity-40 cursor-pointer" onClick={handleMoalClose} ref={container}>
+       <div className="box-border m-auto px-96 py-44 rounded-lg bg-white shadow-xl cursor-default"></div>
+    </div>
   );
 };
 

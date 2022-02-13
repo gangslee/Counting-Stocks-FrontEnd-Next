@@ -72,7 +72,7 @@ export const getServerSideProps = async () => {
   await Promise.all(
     initData.map(async (stock) => {
       const { regularMarketChange, regularMarketPrice } = await localApiGet(
-        `stock/my_stock_current?code=${stock.ticker}`
+        `stock/my-stock-current?code=${stock.ticker}`
       );
 
       stock.current = regularMarketPrice;
