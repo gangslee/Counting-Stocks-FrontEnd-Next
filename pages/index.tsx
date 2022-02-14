@@ -1,7 +1,6 @@
 import type { InferGetStaticPropsType, NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
-import styled from "styled-components";
 
 import MyStockCard from "../components/cards/MyStockCard";
 import FAB from "../components/containers/FAB";
@@ -14,13 +13,6 @@ import Title from "../components/texts/Title";
 import { MyStockInfo } from "../types/index/MyStockInfo";
 import { localApiGet } from "../utils/api";
 import { moneyComma, sortByUpdown } from "../utils/format";
-
-const CardContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 16px 36px;
-  margin: auto;
-`;
 
 const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
   stockInfo,
@@ -49,15 +41,15 @@ const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
 
       <SectionTitle>보유종목 현황</SectionTitle>
 
-      <CardContainer>
+      <div className="grid grid-cols-3 gap-x-9 gap-y-4">
         {stockInfo.map((stock, index) => (
-          // <Link href={`/detail/${stock.ticker}`} key={index}>
-          <a onClick={() => alert("해당 페이지는 아직 준비 중 입니다.")} key={index}>
-            <MyStockCard data={stock} exchange={exchange} key={index} />
-          </a>
-          // </Link>
+          <Link href={`/detail/${stock.ticker}`} key={index}>
+            <a>
+              <MyStockCard data={stock} exchange={exchange} />
+            </a>
+          </Link>
         ))}
-      </CardContainer>
+      </div>
 
       <FAB text="+" onClick={handleOnClickFAB} />
       {showModal && <ModalContainer closeModal={handleOnClickModalOutside} />}
