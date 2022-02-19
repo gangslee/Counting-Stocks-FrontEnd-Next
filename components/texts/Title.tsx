@@ -1,13 +1,9 @@
-import styled from "styled-components";
+interface Props {
+  children: React.ReactNode;
+}
 
-const Title = styled.span`
-  display: block;
-  text-align: center;
-  margin: 24px 0px 18px 0px;
-  font-size: 32px;
-  font-family: "Lato";
-  font-weight: 600;
-  color: #222;
-`;
+const Title = ({ children }: Props) => {
+  return <span className="block text-center my-4 font-lato text-3xl font-semibold text-zinc-800 ">{children}</span>;
+}
 
-export default Title;
+export default Title

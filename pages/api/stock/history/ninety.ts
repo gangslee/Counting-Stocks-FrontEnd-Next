@@ -1,7 +1,7 @@
 import nc from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next";
 import yahooFinance from "yahoo-finance2";
-import NextCors from "nextjs-cors";
+
 import { dateFormat, getDay } from "../../../../utils/day";
 import { ThumbnailChartDatas } from "../../../../types/chart/ThumbnailChart";
 
@@ -14,12 +14,6 @@ const handler = nc<NextApiRequest, NextApiResponse>({
     res.status(404).end("Page is not found - stock/ninety API");
   },
 }).get(async (req, res) => {
-  await NextCors(req, res, {
-    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-    origin: "*",
-    optionsSuccessStatus: 200,
-  });
-
   const today = new Date();
   let max = 0;
   let min = 9999999;
