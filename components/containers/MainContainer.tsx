@@ -1,17 +1,9 @@
-import styled from "styled-components";
-
 interface Props {
   children: React.ReactNode;
 }
 
-const Container = styled.div`
-  margin: auto;
-  max-width: 1080px;
-  padding-top: 110px;
-`;
-
 const MainContainer = ({ children }: Props) => {
-  return <Container>{children}</Container>;
+  return <div className="m-auto max-w-5xl pt-28 font-s-core6">{children}</div>;
 };
 
 export default MainContainer;

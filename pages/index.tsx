@@ -7,7 +7,7 @@ import FAB from "../components/containers/FAB";
 import MainContainer from "../components/containers/MainContainer";
 import ModalContainer from "../components/containers/ModalContainer";
 import { PlusMinus } from "../components/texts/Color";
-import { SectionTitle } from "../components/texts/SectionTitle";
+import SectionTitle from "../components/texts/SectionTitle";
 import Subtitle from "../components/texts/Subtitle";
 import Title from "../components/texts/Title";
 import { MyStockInfo } from "../types/index/MyStockInfo";
@@ -37,9 +37,10 @@ const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
         보유 종목 수익
         <PlusMinus isPlus={revenue > 0}>{` ${moneyComma(revenue.toFixed())}`}</PlusMinus>원
       </Title>
-      <Subtitle>아래 보유종목 카드에서 상세 현황이 확인 가능합니다.</Subtitle>
 
-      <SectionTitle>보유종목 현황</SectionTitle>
+      <Subtitle text="아래 보유종목 카드에서 상세 현황이 확인 가능합니다." />
+
+      <SectionTitle text="보유종목 현황" />
 
       <div className="grid grid-cols-3 gap-x-9 gap-y-4">
         {stockInfo.map((stock, index) => (

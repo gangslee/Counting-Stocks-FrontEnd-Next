@@ -1,7 +1,8 @@
-import styled from "styled-components";
-import { CS_BLUE, CS_RED } from "../../styles/Theme";
-import { plusMinus } from "../../types/style/color";
+interface Props {
+  children: React.ReactNode;
+  isPlus: boolean;
+}
 
-export const PlusMinus = styled.span<plusMinus>`
-  color: ${(props) => (props.isPlus ? CS_RED : CS_BLUE)};
-`;
+export const PlusMinus = ({ children, isPlus }: Props) => {
+  return <span className={isPlus ? "text-CS_RED" : "text-CS_BLUE"}>{children}</span>;
+}

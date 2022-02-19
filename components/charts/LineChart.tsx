@@ -1,13 +1,7 @@
 import ApexChart from "react-apexcharts";
-import styled from "styled-components";
 import useSWR, { SWRResponse } from "swr";
-import { CS_BLUE, CS_RED } from "../../styles/Theme";
 import { ThumbnailChartDatas } from "../../types/chart/ThumbnailChart";
 import { localApiGet } from "../../utils/api";
-
-const Container = styled.div`
-  width: 100%;
-`;
 
 interface Props {
   ticker: string;
@@ -16,7 +10,7 @@ interface Props {
 
 const Chart = ({ ticker, regularMarketChange }: Props) => {
   const isPlus = regularMarketChange > 0;
-  const color = isPlus ? CS_RED : CS_BLUE;
+  const color = isPlus ? "#DD4A4A" : "#5577DD";
   const { data, error }: SWRResponse<ThumbnailChartDatas> = useSWR(
     `stock/history/ninety?symbol=${ticker}`,
     localApiGet
@@ -66,7 +60,7 @@ const Chart = ({ ticker, regularMarketChange }: Props) => {
       ],
     },
     chart: {},
-    colors: [isPlus ? "#dd4a4a" : "#5577dd"],
+    colors: [color],
     xaxis: {
       labels: {
         show: false,
@@ -93,9 +87,9 @@ const Chart = ({ ticker, regularMarketChange }: Props) => {
     },
   ];
   return (
-    <Container>
+    <div className="w-full">
       {!error && <ApexChart type="line" options={options} series={series} height={400} />}
-    </Container>
+    </div>
   );
 };
 

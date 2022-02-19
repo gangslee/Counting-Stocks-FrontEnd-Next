@@ -1,48 +1,8 @@
 import dynamic from "next/dynamic";
-import styled from "styled-components";
 
 import { MyStockInfo } from "../../types/index/MyStockInfo";
 import { moneyComma } from "../../utils/format";
 import { PlusMinus } from "../texts/Color";
-
-const Container = styled.div`
-  width: 100%;
-  margin: 8px auto;
-  padding: 28px 16px 0 16px;
-  background-color: #fff;
-  /* background-color: #202026; */
-  /* color: #fff; */
-  box-shadow: 10px 10px 20px 0 rgba(0, 20, 40, 0.2);
-  border-radius: 8px;
-  cursor: pointer;
-  :hover {
-    transform: translate(-2px, -8px);
-    background-color: #fcfcfc;
-  }
-  transition: 0.2s transform linear;
-`;
-
-const FlexContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  padding: 0 8px;
-
-  :first-child {
-    font-size: 16px;
-    margin-bottom: 8px;
-  }
-`;
-
-const ChartContainer = styled.div`
-  width: 100%;
-`;
-
-const Ratio = styled.span`
-  margin-left: 4px;
-  font-size: 10px;
-  font-family: "S-CoreDream-5Medium";
-`;
 
 interface Props {
   data: MyStockInfo;
@@ -58,31 +18,31 @@ const MyStockCard = ({ data, exchange }: Props) => {
   const myRatio = (((current - avg) / avg) * 100).toFixed(2);
 
   return (
-    <Container>
-      <FlexContainer>
+    <div className="my-2 pt-7 px-4 bg-white shadow-2xl rounded-lg cursor-pointer hover:-translate-x-1 hover:-translate-y-3 transition-all duration-300">
+      <div className="flex justify-between px-2 text-base mb-1">
         <span>{name}</span>
         <span>
           {income > 0 && "+"}
           {moneyComma(`${income}`)}원
         </span>
-      </FlexContainer>
+      </div>
 
-      <FlexContainer>
+      <div className="flex justify-between text-sm px-2">
         <PlusMinus isPlus={currentRatio >= 0}>
           {moneyComma(current.toFixed(4))}
-          <Ratio>({currentRatio}%)</Ratio>
+          <span className="ml-1 text-xs font-s-core5">({currentRatio}%)</span>
         </PlusMinus>
 
         <PlusMinus isPlus={parseFloat(myRatio) >= 0}>
           {moneyComma(avg.toFixed(4))}
-          <Ratio>{`(${myRatio}%)`}</Ratio>
+          <span className="ml-1 text-xs font-s-core5">{`(${myRatio}%)`}</span>
         </PlusMinus>
-      </FlexContainer>
+      </div>
 
-      <ChartContainer>
+      <div>
         <DynamicComponentWithNoSSR ticker={ticker} isPlus={currentRatio >= 0} />
-      </ChartContainer>
-    </Container>
+      </div>
+    </div>
   );
 };
 
