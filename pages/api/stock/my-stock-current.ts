@@ -4,7 +4,6 @@ import yahooFinance from "yahoo-finance2";
 
 const handler = nc<NextApiRequest, NextApiResponse>({
   onError: (err, req, res) => {
-    console.error(err.stack);
     res.status(500).end("Something broke! - stock/my_stock_current API");
   },
   onNoMatch: (req, res) => {
